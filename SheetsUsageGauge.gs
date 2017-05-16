@@ -52,3 +52,27 @@ function showGaugeSidebar() {
   SpreadsheetApp.getUi().showSidebar(htmlOutput);
 }  
 
+function getPercentCells( var whatType ) {
+  
+   var sheets = getUsageStats();
+   var typeFull = 0 ; 
+   var largestSheetName;
+   var largestSheetNumCells = 0;
+   var totalNumCells = 0;
+  
+   sheets.forEach(function(sheet) {
+      var numCellsOnSheet = sheet.maxRows * sheet.maxColumns;
+      if (numCellsOnSheet > largestSheetNumCells) {
+          largestSheetNumCells = numCellsOnSheet;
+          largestSheetName = sheet.name;
+       }
+       totalNumCells += numCellsOnSheet;
+   });
+            
+  if (whatType == 'count')
+    typeFull = totalNumCells ;
+  else
+    typeFull = totalNumCells / 2000000 * 100 ;
+  
+  return typeFull ;
+}
